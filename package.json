@@ -7,11 +7,11 @@
     "startAndroid": "concurrently \"npm run startClientAndroid\" \"npm run startServer\"",
     "startIOS": "concurrently \"npm run startClientIOS\" \"npm run startServer\"",
     "update": "yarn && npm run updateClient && npm run updateServer",
-    "updateClient": "cd frontend && yarn && cd ios && pod install",
-    "updateServer": "cd server && yarn",
-    "startClientIOS": "cd frontend && yarn && yarn ios",
-    "startClientAndroid": "cd frontend && yarn && yarn android",
-    "startServer": "cd server && yarn && yarn start",
+    "updateClient": "cd frontend && yarn update",
+    "updateServer": "cd server && yarn update",
+    "startClientIOS": "cd frontend && yarn ios",
+    "startClientAndroid": "cd frontend && yarn android",
+    "startServer": "cd server && yarn start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
