@@ -6,7 +6,7 @@
   "scripts": {
     "startAndroid": "concurrently \"npm run startClientAndroid\" \"npm run startServer\"",
     "startIOS": "concurrently \"npm run startClientIOS\" \"npm run startServer\"",
-    "update": "npm run updateClient && npm run updateServer",
+    "update": "yarn && npm run updateClient && npm run updateServer",
     "updateClient": "cd frontend && yarn && cd ios && pod install",
     "updateServer": "cd server && yarn",
     "startClientIOS": "cd frontend && yarn && yarn ios",
