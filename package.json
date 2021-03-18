@@ -1,0 +1,32 @@
+{
+  "name": "zoominfo",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "startAndroid": "concurrently \"npm run startClientAndroid\" \"npm run startServer\"",
+    "startIOS": "concurrently \"npm run startClientIOS\" \"npm run startServer\"",
+    "update": "npm run updateClient && npm run updateServer",
+    "updateClient": "cd frontend && yarn && cd ios && pod install",
+    "updateServer": "cd server && yarn",
+    "startClientIOS": "cd frontend && yarn && yarn ios",
+    "startClientAndroid": "cd frontend && yarn && yarn android",
+    "startServer": "cd server && yarn && yarn start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zvukamar/targil_zoom.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zvukamar/targil_zoom/issues"
+  },
+  "homepage": "https://github.com/Zvukamar/targil_zoom#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^6.0.0"
+  }
+}
