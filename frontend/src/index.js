@@ -1,16 +1,16 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  Text,
-} from 'react-native';
+import { Provider } from 'react-redux';
+import { SafeAreaView, StatusBar, Text } from 'react-native';
 
+import store from './store';
 
 const App = () => {
   return (
     <SafeAreaView>
       <StatusBar barStyle={'light-content'} />
-      <Text>App</Text>
+      <Provider store={store}>
+        <Text>App</Text>
+      </Provider>
     </SafeAreaView>
   );
 };
