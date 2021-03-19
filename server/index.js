@@ -1,10 +1,12 @@
 const express = require('express');
-const app = express();
+const { products } = require('./routes');
 
+const app = express();
 const PORT = process.env.PORT || 4001;
 
-app.get('/', (req, res) => {
-    res.status(200).send("Basic get request");
+app.use('/products', products);
+app.get('/', (req, res, next) => {
+    res.status(404).json({});
 });
 
 app.listen(PORT, () => {
