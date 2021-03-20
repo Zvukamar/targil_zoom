@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Button from '../button';
 import { MAIN_STACK_NAMES } from '../../router/names';
+import * as colors from '../../utilities/colors';
 
 const ProductItem = ({ item, navigation }) => {
     const handleOnPress = () => {
@@ -19,7 +20,12 @@ const ProductItem = ({ item, navigation }) => {
                     <Text style={styles.itemName}>{item?.name}</Text>
                 </View>
                 {item?.price && <Text style={styles.itemPrice}>${item?.price}</Text>}
-                <Button title='Buy Now' disabled />
+                <Button
+                    title='Buy Now'
+                    style={styles.button}
+                    disabled
+                    withArrow
+                />
             </View>
             <View style={styles.innerContainerRight}>
                 <Image
@@ -67,5 +73,9 @@ const styles = StyleSheet.create({
     itemImage: {
         height: 150,
         width: 100
+    },
+    button: {
+        justifyContent: 'space-between',
+        backgroundColor: colors.PALE
     }
 });
