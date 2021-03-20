@@ -1,15 +1,25 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const ProductItem = ({ item }) => {
+import Button from '../button';
+import { MAIN_STACK_NAMES } from '../../router/names';
+
+const ProductItem = ({ item, navigation }) => {
+    const handleOnPress = () => {
+        navigation.navigate(MAIN_STACK_NAMES.PRODUCT_DETAIL, { item })
+    }
     return (
-        <View style={styles.itemContainer}>
+        <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={handleOnPress}
+            style={styles.itemContainer}>
             <View style={styles.innerContainerLeft}>
                 <View>
                     {item?.sku && <Text style={styles.itemSKU}>sku: {item?.sku}</Text>}
                     <Text style={styles.itemName}>{item?.name}</Text>
                 </View>
                 {item?.price && <Text style={styles.itemPrice}>${item?.price}</Text>}
+                <Button title='Buy Now' disabled />
             </View>
             <View style={styles.innerContainerRight}>
                 <Image
@@ -20,7 +30,7 @@ const ProductItem = ({ item }) => {
                     source={item?.image ? { uri: item?.image } : require('../../images/image-not-found.png')}
                 />
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -51,7 +61,8 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
     },
     itemPrice: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginVertical: 10
     },
     itemImage: {
         height: 150,
