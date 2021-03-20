@@ -1,7 +1,7 @@
-import HomeScreen from './home';
 import ProductsScreen from './products';
+import ProductDetailsScreen from './productDetails';
 
 export default {
-    HomeScreen,
-    ProductsScreen
+    ProductsScreen,
+    ProductDetailsScreen
 }

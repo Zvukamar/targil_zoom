@@ -10,12 +10,12 @@ const MainStack = () => {
     return (
         <Stack.Navigator initialRouteName={MAIN_STACK_NAMES.PRODUCTS}>
             <Stack.Screen
-                name={MAIN_STACK_NAMES.HOME}
-                component={Screens.HomeScreen}
-            />
-            <Stack.Screen
                 name={MAIN_STACK_NAMES.PRODUCTS}
                 component={Screens.ProductsScreen}
+            />
+            <Stack.Screen
+                name={MAIN_STACK_NAMES.PRODUCT_DETAIL}
+                component={Screens.ProductDetailsScreen}
             />
         </Stack.Navigator>
     )
