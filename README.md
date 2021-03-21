@@ -29,3 +29,10 @@ includes pods of ios.
 ### `yarn updateServer`
 
 it will update all the dependences of server.
+
+### `yarn startServer`
+
+It will start the server project
+in url localhost:4001
+
+
