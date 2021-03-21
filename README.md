@@ -2,7 +2,7 @@
 ## How to run the project
 
 1. yarn update
-2. yarn startIOS || yarn startAndroid (depend on what do you to run)
+2. yarn startIOS or yarn startAndroid (depend on what project do you want to run)
 
 ### `yarn update`
 
