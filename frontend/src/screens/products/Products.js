@@ -15,7 +15,7 @@ const ProductsScreen = (props) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [text, setText] = useState('');
-
+    const [onEndReachedCalledDuringMomentum, setOnEndReachedCalledDuringMomentum] = useState(false);
 
     const fetchData = async () => {
         if (loading) return;
@@ -72,10 +72,16 @@ const ProductsScreen = (props) => {
                 data={products}
                 ItemSeparatorComponent={ListItemSeperator}
                 renderItem={renderItem}
-                onEndReached={fetchData}
-                onEndReachedThreshold={10}
+                onEndReachedThreshold={0.1}
                 keyExtractor={item => item.sku.toString()}
-                ListFooterComponent={ListLoader}
+                onMomentumScrollBegin={() => { setOnEndReachedCalledDuringMomentum(false) }}
+                onEndReached={() => {
+                    if (!onEndReachedCalledDuringMomentum) {
+                        fetchData();
+                        setOnEndReachedCalledDuringMomentum(true)
+                    }
+                }}
+                ListFooterComponent={loading ? ListLoader : null}
             />
         </View>
     )
