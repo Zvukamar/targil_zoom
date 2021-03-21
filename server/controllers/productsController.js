@@ -14,7 +14,28 @@ const get_all_products = (req, res) => {
     }
 };
 
+const get_products_by_name = (req, res) => {
+    const { name, from = 0 } = req.query;
+    if (!name) {
+        const _data = products.slice(0, 10);
+        return res.json({ data: _data, lastIndex: 0 });
+    } else {
+        const _data = [];
+        let lastIndex = 0;
+        // return 10 new products if found
+        products.slice(from).forEach((product, index) => {
+            if (_data.length === 10) return;
+            else if (product.name.indexOf(name) !== -1) {
+                _data.push(product);
+                lastIndex = index;
+            }
+        });
+        return res.json({ data: _data, lastIndex });
+    }
+}
+
 
 module.exports = {
     get_all_products,
+    get_products_by_name
 };

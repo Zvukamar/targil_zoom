@@ -5,26 +5,33 @@ import ListLoader from '../../components/listLoader';
 import { useNavigation } from '@react-navigation/native';
 
 import ProductItem from '../../components/productItem';
-import { fetchProducts } from '../../utilities/api';
+import { fetchProducts, fetchProductsByName } from '../../utilities/api';
 import * as colors from '../../utilities/colors';
+import SearchBar from '../../components/searchbar/SearchBar';
 
 const ProductsScreen = (props) => {
     const navigation = useNavigation();
     const [startIndex, setStartIndex] = useState(0);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [text, setText] = useState('');
 
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     const fetchData = async () => {
         if (loading) return;
-
         setLoading(true);
-        const _products = await fetchProducts(startIndex);;
-        setProducts(prevProducts => [...prevProducts, ..._products]);
-        setStartIndex(prevIndex => prevIndex + _products.length);
+
+        // initial fetch
+        if (!text) {
+            const _products = await fetchProducts(startIndex);
+            setProducts(prevProducts => [...prevProducts, ..._products]);
+            setStartIndex(prevIndex => prevIndex + _products.length);
+        } else {
+            const { data, lastIndex } = await fetchProductsByName(text, startIndex);
+            setProducts(data);
+            setStartIndex(lastIndex);
+        }
+
         setLoading(false);
     }
 
@@ -37,8 +44,30 @@ const ProductsScreen = (props) => {
         )
     }
 
+    useEffect(() => {
+        if (!text) {
+            setLoading(false);
+            setStartIndex(0);
+            setProducts([]);
+        } else {
+            fetchData();
+        }
+    }, [text]);
+
+    useEffect(() => {
+        fetchData();
+    }, [products]);
+
+    const handleOnChangeText = async (text) => {
+        setText(text);
+    }
+
     return (
         <View style={styles.container}>
+            <SearchBar
+                placeholder='Product search...'
+                onChangeText={handleOnChangeText}
+            />
             <FlatList
                 data={products}
                 ItemSeparatorComponent={ListItemSeperator}
