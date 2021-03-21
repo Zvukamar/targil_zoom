@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import ListItemSeperator from '../../components/listItemSeperator';
 import ListLoader from '../../components/listLoader';
 import { useNavigation } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import ProductItem from '../../components/productItem';
 import { fetchProducts, fetchProductsByName } from '../../utilities/api';
 import * as colors from '../../utilities/colors';
 import SearchBar from '../../components/searchbar/SearchBar';
+import ListEmpty from '../../components/listEmpty';
 
 const ProductsScreen = (props) => {
     const navigation = useNavigation();
@@ -62,6 +63,17 @@ const ProductsScreen = (props) => {
         setText(text);
     }
 
+    const onEndReached = () => {
+        if (!onEndReachedCalledDuringMomentum) {
+            fetchData();
+            setOnEndReachedCalledDuringMomentum(true)
+        }
+    }
+
+    const onMomentumScrollBegin = () => {
+        setOnEndReachedCalledDuringMomentum(false)
+    }
+
     return (
         <View style={styles.container}>
             <SearchBar
@@ -70,17 +82,13 @@ const ProductsScreen = (props) => {
             />
             <FlatList
                 data={products}
+                ListEmptyComponent={() => <ListEmpty title='No results was found' />}
                 ItemSeparatorComponent={ListItemSeperator}
                 renderItem={renderItem}
                 onEndReachedThreshold={0.1}
                 keyExtractor={item => item.sku.toString()}
-                onMomentumScrollBegin={() => { setOnEndReachedCalledDuringMomentum(false) }}
-                onEndReached={() => {
-                    if (!onEndReachedCalledDuringMomentum) {
-                        fetchData();
-                        setOnEndReachedCalledDuringMomentum(true)
-                    }
-                }}
+                onMomentumScrollBegin={onMomentumScrollBegin}
+                onEndReached={onEndReached}
                 ListFooterComponent={loading ? ListLoader : null}
             />
         </View>
